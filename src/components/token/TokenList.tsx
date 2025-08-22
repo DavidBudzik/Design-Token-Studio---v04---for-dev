@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -31,7 +31,6 @@ export function TokenList() {
     groups, 
     selectedToken, 
     addGroup, 
-    updateGroup, 
     selectToken 
   } = useTokenStore();
   
@@ -91,10 +90,7 @@ export function TokenList() {
     setIsEditorOpen(true);
   };
 
-  const handleEditToken = (token: any) => {
-    selectToken(token);
-    setIsEditorOpen(true);
-  };
+
 
   const activeToken = activeId ? tokens.find(t => t.id === activeId) : null;
 

@@ -1,4 +1,4 @@
-import { Token, TokenCategory } from './token';
+import { Token } from './token';
 
 export type IndustryType = 'Education' | 'Technology' | 'Healthcare' | 'Fashion' | 'Entertainment' | 'Finance' | 'Food' | 'Travel' | 'Sports' | 'Gaming';
 
