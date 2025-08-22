@@ -16,7 +16,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { Plus, FolderPlus, Search } from 'lucide-react';
+import { Plus, FolderPlus, Search, Download, Upload } from 'lucide-react';
 import { useTokenStore } from '@/stores/tokenStore';
 import { TokenGroup } from './TokenGroup';
 import { TokenItem } from './TokenItem';
@@ -24,6 +24,8 @@ import { TokenEditor } from './TokenEditor';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { ExportDialog } from '@/components/export/ExportDialog';
+import { ImportDialog } from '@/components/export/ImportDialog';
 
 export function TokenList() {
   const { 
@@ -36,6 +38,8 @@ export function TokenList() {
   } = useTokenStore();
   
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -111,6 +115,14 @@ export function TokenList() {
               </p>
             </div>
             <div className="flex space-x-2">
+              <Button variant="ghost" onClick={() => setIsImportOpen(true)}>
+                <Upload className="h-4 w-4 mr-2" />
+                Import
+              </Button>
+              <Button variant="ghost" onClick={() => setIsExportOpen(true)}>
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
               <Button variant="outline" onClick={handleAddGroup}>
                 <FolderPlus className="h-4 w-4 mr-2" />
                 Add Group
@@ -215,6 +227,18 @@ export function TokenList() {
           }}
         />
       )}
+
+      {/* Export Dialog */}
+      <ExportDialog
+        isOpen={isExportOpen}
+        onClose={() => setIsExportOpen(false)}
+      />
+
+      {/* Import Dialog */}
+      <ImportDialog
+        isOpen={isImportOpen}
+        onClose={() => setIsImportOpen(false)}
+      />
     </div>
   );
 }
