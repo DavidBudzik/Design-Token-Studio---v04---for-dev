@@ -1,6 +1,8 @@
-import React from 'react';
 import { TokenList } from './components/token/TokenList';
 import { ComponentPreview } from './components/preview/ComponentPreview';
+import { ExportImport } from './components/export/ExportImport';
+import { ThemeLibrary } from './components/theme/ThemeLibrary';
+import { AccessibilityChecker } from './components/accessibility/AccessibilityChecker';
 
 function App() {
   return (
@@ -26,15 +28,22 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-2 gap-6">
           {/* Token Management Panel */}
-          <div className="space-y-6">
+          <div className="xl:col-span-2 space-y-6">
             <TokenList />
           </div>
 
           {/* Preview Panel */}
           <div className="space-y-6">
             <ComponentPreview />
+          </div>
+
+          {/* Tools Panel */}
+          <div className="space-y-6">
+            <ThemeLibrary />
+            <ExportImport />
+            <AccessibilityChecker />
           </div>
         </div>
       </main>

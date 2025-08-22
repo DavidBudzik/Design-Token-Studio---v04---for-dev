@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import { useTokenStore } from '@/stores/tokenStore';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -8,7 +8,7 @@ export function ComponentPreview() {
   const { tokens } = useTokenStore();
 
   // Generate CSS custom properties from tokens
-  const tokenStyles = React.useMemo(() => {
+  const tokenStyles = useMemo(() => {
     const styles: Record<string, string> = {};
     
     tokens.forEach(token => {
