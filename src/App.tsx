@@ -1,8 +1,43 @@
 import React from 'react';
 import { TokenList } from './components/token/TokenList';
 import { ComponentPreview } from './components/preview/ComponentPreview';
+import { useTokenStore } from './stores/tokenStore';
 
 function App() {
+  const { tokens, addToken } = useTokenStore();
+
+  // Add sample tokens on first load
+  React.useEffect(() => {
+    if (tokens.length === 0) {
+      // Add some sample tokens
+      const sampleTokens = [
+        {
+          name: 'primary-blue',
+          value: '#2563eb',
+          type: 'color' as const,
+          category: 'Primary' as const,
+          description: 'Main brand color',
+        },
+        {
+          name: 'spacing-md',
+          value: '16px',
+          type: 'spacing' as const,
+          category: 'Other' as const,
+          description: 'Medium spacing',
+        },
+        {
+          name: 'text-lg',
+          value: '1.125rem',
+          type: 'typography' as const,
+          category: 'Text' as const,
+          description: 'Large text size',
+        },
+      ];
+
+      sampleTokens.forEach(token => addToken(token));
+    }
+  }, []); // Only run once on mount
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
