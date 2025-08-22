@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "ts-node-dev --respawn server/index.ts",
+    "build:server": "tsc -p tsconfig.server.json",
+    "start:server": "node dist-server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +33,18 @@
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite": "^7.0.6",
-    "zustand": "^5.0.6"
+    "zustand": "^5.0.6",
+    "openai": "^4.27.0",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.8.3"
   }
 }
