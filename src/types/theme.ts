@@ -1,14 +1,51 @@
-import { Token, TokenCategory } from './token';
+import { Token } from './token';
 
-export type IndustryType = 'Education' | 'Technology' | 'Healthcare' | 'Fashion' | 'Entertainment' | 'Finance' | 'Food' | 'Travel' | 'Sports' | 'Gaming';
+export type IndustryType = 
+  | 'Technology' 
+  | 'Healthcare' 
+  | 'Finance' 
+  | 'Education' 
+  | 'Retail' 
+  | 'Hospitality' 
+  | 'Entertainment' 
+  | 'Automotive' 
+  | 'Non-Profit' 
+  | 'Food & Beverage' 
+  | 'Fashion' 
+  | 'Real Estate';
 
-export type ColorRole = 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'error' | 'neutral' | 'surface' | 'text' | 'ui' | 'icons';
+export type ColorRole = 
+  | 'primary' 
+  | 'secondary' 
+  | 'accent' 
+  | 'success' 
+  | 'warning' 
+  | 'error' 
+  | 'neutral' 
+  | 'surface' 
+  | 'text' 
+  | 'ui' 
+  | 'icons';
 
-export type EmotionTag = 'Trust' | 'Calmness' | 'Focus' | 'Excitement' | 'Passion' | 'Energy' | 'Safety' | 'Comfort' | 'Professionalism' | 'Innovation' | 'Elegance' | 'Timelessness' | 'Status';
+export type EmotionTag = 
+  | 'Trust' 
+  | 'Calmness' 
+  | 'Focus' 
+  | 'Excitement' 
+  | 'Passion' 
+  | 'Energy' 
+  | 'Safety' 
+  | 'Comfort' 
+  | 'Professionalism' 
+  | 'Innovation' 
+  | 'Elegance' 
+  | 'Timelessness' 
+  | 'Status';
 
 export interface ThemeColor {
   role: ColorRole;
   hex: string;
+  oklch: string;
   light: string;
   dark: string;
   interactive_states: {
@@ -19,6 +56,11 @@ export interface ThemeColor {
     disabled: string;
   };
   usage: string;
+  accessibility: {
+    contrastRatio: number;
+    wcagAA: boolean;
+    wcagAAA: boolean;
+  };
 }
 
 export interface Theme {
@@ -30,6 +72,10 @@ export interface Theme {
   emotionTags: EmotionTag[];
   createdAt: Date;
   isCustom?: boolean;
+  accessibility: {
+    compliance: 'AA' | 'AAA' | 'partial';
+    averageContrast: number;
+  };
 }
 
 export interface ThemeTemplate {
@@ -44,9 +90,30 @@ export interface ThemeTemplate {
   };
   emotionTags: EmotionTag[];
   tokens: Token[];
+  accessibility: {
+    compliance: 'AA' | 'AAA';
+    averageContrast: number;
+  };
 }
 
 export interface ThemeLibrary {
   templates: ThemeTemplate[];
   custom: Theme[];
+}
+
+export interface IndustryThemePreview {
+  id: string;
+  name: string;
+  industry: IndustryType;
+  description: string;
+  emotionTags: EmotionTag[];
+  preview: {
+    primary: string;
+    secondary: string;
+    accent: string;
+  };
+  accessibility: {
+    compliance: 'AA' | 'AAA';
+    averageContrast: number;
+  };
 }

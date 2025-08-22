@@ -55,7 +55,7 @@ export const useTokenStore = create<TokenStore>()(
         set((state) => ({
           tokens: state.tokens.map((token) =>
             token.id === id
-              ? { ...token, ...updates, updatedAt: new Date() }
+              ? { ...token, ...updates, updatedAt: new Date() } as Token
               : token
           ),
         }));
@@ -105,7 +105,7 @@ export const useTokenStore = create<TokenStore>()(
       },
 
       moveTokenToGroup: (tokenId, groupId) => {
-        const { tokens, groups } = get();
+        const { tokens } = get();
         const token = tokens.find((t) => t.id === tokenId);
         
         if (!token) return;
