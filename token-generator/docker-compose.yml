@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL=${MODEL:-gpt-4-turbo-preview}
+      - FALLBACK_MODEL=${FALLBACK_MODEL:-gpt-3.5-turbo}
+      - TIMEOUT_MS=${TIMEOUT_MS:-45000}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3001}
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-60000}
+      - RATE_LIMIT_MAX_REQUESTS=${RATE_LIMIT_MAX_REQUESTS:-100}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Development services
+  dev-backend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app/backend
+      - ./shared:/app/shared
+      - ./package.json:/app/package.json
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    command: sh -c "cd /app && npm install && npm run dev:backend"
+    profiles:
+      - dev
+
+  dev-frontend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app/frontend
+      - ./shared:/app/shared
+      - ./package.json:/app/package.json
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    command: sh -c "cd /app && npm install && npm run dev:frontend"
+    profiles:
+      - dev
